@@ -1,0 +1,41 @@
+!pip install scikit-learn
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_regression
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+import numpy as np
+
+# Generate synthetic regression data
+X, y = make_regression(n_samples=1000, n_features=8, noise=10, random_state=42)
+
+# Split, scale, train, and evaluate using same logic
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+scaler = MinMaxScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+X_test_scaled = scaler.transform(X_test)
+
+model = LinearRegression()
+model.fit(X_train_scaled, y_train)
+y_pred = model.predict(X_test_scaled)
+
+# Evaluation
+mae = mean_absolute_error(y_test, y_pred)
+mse = mean_squared_error(y_test, y_pred)
+rmse = np.sqrt(mse)
+r2 = r2_score(y_test, y_pred)
+
+print(f"Mean Absolute Error: {mae:.2f}")
+print(f"Mean Squared Error: {mse:.2f}")
+print(f"Root Mean Squared Error: {rmse:.2f}")
+print(f"R² Score: {r2:.2f}")
+
+# Plot
+plt.figure(figsize=(8, 5))
+plt.scatter(y_test, y_pred, alpha=0.7, color='teal')
+plt.xlabel("Actual Prices")
+plt.ylabel("Predicted Prices")
+plt.title("Actual vs Predicted Prices (Synthetic Data)")
+plt.plot([y_test.min(), y_test.max()], [y_test.min(), y_test.max()], 'r--')
+plt.show()
