@@ -1,0 +1,38 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from statsmodels.tsa.seasonal import seasonal_decompose
+
+# Step 1: Create a synthetic Titanic-like dataset
+np.random.seed(42)
+n_samples = 200
+fare_values = np.abs(np.random.normal(loc=30, scale=10, size=n_samples))  # synthetic 'Fare'
+
+# Create DataFrame
+titanic = pd.DataFrame({
+    'Index': pd.RangeIndex(start=0, stop=n_samples),
+    'Fare': fare_values
+})
+titanic.set_index('Index', inplace=True)
+
+# Step 2: Apply seasonal decomposition
+decomposition = seasonal_decompose(titanic['Fare'], model='additive', period=12)
+decomposition.plot()
+plt.suptitle('Seasonal Decomposition of Synthetic Fare Data', fontsize=14)
+plt.tight_layout()
+plt.show()
+
+# Step 3: Calculate 7-day moving average
+titanic['SMA_7'] = titanic['Fare'].rolling(window=7).mean()
+
+# Step 4: Plot original and SMA
+plt.figure(figsize=(10, 6))
+plt.plot(titanic['Fare'], label='Original Fare', alpha=0.6)
+plt.plot(titanic['SMA_7'], label='7-Day SMA', color='red', linewidth=2)
+plt.title('7-Day Simple Moving Average (SMA) of Synthetic Fare')
+plt.xlabel('Index')
+plt.ylabel('Fare')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
