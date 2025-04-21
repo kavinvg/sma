@@ -1,4 +1,7 @@
-!pip install scikit-learn
+#exp 5 linear regression
+# Install required libraries (run only once)
+# !pip install scikit-learn matplotlib numpy
+
 import matplotlib.pyplot as plt
 from sklearn.datasets import make_regression
 from sklearn.model_selection import train_test_split
