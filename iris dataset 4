@@ -1,8 +1,10 @@
+# exp 4 data visualization 
+
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Sample dataset
+# Sample dataset (works offline)
 data = {
     'PassengerId': range(1, 11),
     'Name': ['John', 'Emily', 'William', 'Sophia', 'James', 'Olivia', 'Liam', 'Emma', 'Noah', 'Ava'],
@@ -15,7 +17,7 @@ data = {
 
 df = pd.DataFrame(data)
 
-# Set Seaborn theme
+# Set Seaborn theme for better visualizations
 sns.set(style="whitegrid")
 
 # 1. Bar Plot – Total Fare by Passenger Class
