@@ -1,0 +1,71 @@
+#1 explore descriptive statistic
+
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+
+# Load the Iris dataset
+data = load_iris()
+iris_df = pd.DataFrame(data.data, columns=data.feature_names)
+
+# Replace numerical target with species names
+iris_df['species'] = pd.Categorical.from_codes(data.target, data.target_names)
+
+# Print basic information
+print("Shape:", iris_df.shape)
+print("\nFirst 5 rows:\n", iris_df.head())
+print("\nInfo:")
+print(iris_df.info())
+print("\nMissing values:\n", iris_df.isnull().sum())
+print("\nDescription:\n", iris_df.describe())
+
+# Calculate mean, median, and mode for sepal length
+mean = iris_df['sepal length (cm)'].mean()
+print("\nMean:", mean)
+median = iris_df['sepal length (cm)'].median()
+print("Median:", median)
+mode = iris_df['sepal length (cm)'].mode()
+print("Mode:", mode.values)
+
+# Distribution plot
+sns.histplot(iris_df['sepal length (cm)'], bins=10, kde=True, color='blue')
+plt.title("Distribution Plot of Sepal Length (cm)")
+plt.xlabel("Sepal Length (cm)")
+plt.ylabel("Frequency")
+plt.legend(labels=['sepal length (cm)'])
+plt.show()
+
+# Boxplot
+sns.boxplot(x=iris_df['sepal length (cm)'], color='green')
+plt.title("Boxplot of Sepal Length (cm)")
+plt.xlabel("Sepal Length (cm)")
+plt.show()
+
+# Calculate other statistics
+min_val = iris_df['sepal length (cm)'].min()
+max_val = iris_df['sepal length (cm)'].max()
+range_val = max_val - min_val
+variance = iris_df['sepal length (cm)'].var()
+std_dev = iris_df['sepal length (cm)'].std()
+
+print("\nMin:", min_val)
+print("Max:", max_val)
+print("Range:", range_val)
+print("Variance:", variance)
+print("Standard Deviation:", std_dev)
+
+# Interquartile Range (IQR)
+Q1 = iris_df['sepal length (cm)'].quantile(0.25)
+Q2 = iris_df['sepal length (cm)'].quantile(0.5)
+Q3 = iris_df['sepal length (cm)'].quantile(0.75)
+IQR = Q3 - Q1
+
+print("Q1:", Q1)
+print("Q2 (Median):", Q2)
+print("Q3:", Q3)
+print("IQR:", IQR)
+
+# Skewness and Kurtosis
+print("Skewness:", iris_df['sepal length (cm)'].skew())
+print("Kurtosis:", iris_df['sepal length (cm)'].kurt())
