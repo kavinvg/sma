@@ -21,9 +21,10 @@ labels = dbscan.fit_predict(X)
 outliers = X[labels == -1]
 
 # Plot results
-plt.figure(figsize=(8,6))
+plt.figure(figsize=(8, 6))
 unique_labels = set(labels)
 colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k']
+
 for label in unique_labels:
     if label == -1:
         # Outliers in black
