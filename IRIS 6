@@ -1,3 +1,4 @@
+#Exp 6 SMOTE
 import numpy as np
 import matplotlib.pyplot as plt
 from collections import Counter
@@ -31,9 +32,9 @@ y_resampled = np.hstack([y_majority, y_minority_resampled])
 before_counts = Counter(y)
 after_counts = Counter(y_resampled)
 
-# Set positions for bars with "Men" and "Women"
-x_labels = ["Men (Before Oversampling)", "Women (Before Oversampling)",
-            "Men (After Oversampling)", "Women (After Oversampling)"]
+# Set positions for bars with "Majority" and "Minority"
+x_labels = ["Majority (Before Oversampling)", "Minority (Before Oversampling)",
+            "Majority (After Oversampling)", "Minority (After Oversampling)"]
 x_positions = np.arange(len(x_labels))
 
 # Plot the bars
