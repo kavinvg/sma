@@ -1,0 +1,44 @@
+#3 inferencial statistics t test
+
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+from scipy import stats
+
+# Simulated Titanic-like dataset with extra columns
+data = {
+    'PassengerId': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    'Name': [
+        'John Smith', 'Emily Clark', 'William Jones', 'Sophia Brown', 'James Wilson',
+        'Olivia Taylor', 'Liam Davis', 'Emma Johnson', 'Noah Martinez', 'Ava Lee'
+    ],
+    'Gender': ['male', 'female', 'male', 'female', 'male', 'female', 'male', 'female', 'male', 'female'],
+    'Survived': [1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
+    'Age': [22, 35, 26, 40, 19, 50, 28, 45, 60, 18]
+}
+df = pd.DataFrame(data)
+
+# Show the first few rows
+print("Data Preview:\n", df.head())
+
+# Drop missing values in the 'Age' column (not needed here, but for real data)
+df = df.dropna(subset=['Age'])
+
+# Split data into Survived and Not Survived groups
+survived_age = df[df["Survived"] == 1]["Age"]
+not_survived_age = df[df["Survived"] == 0]["Age"]
+
+# Perform independent t-test
+t_stat, p_value = stats.ttest_ind(survived_age, not_survived_age, equal_var=False)
+
+# Print the results
+print("\nT-Test Results:")
+print(f"T-Statistic: {t_stat:.4f}")
+print(f"P-Value: {p_value:.4f}")
+
+# Interpret the results
+alpha = 0.05
+if p_value < alpha:
+    print("Reject the null hypothesis: There is a significant difference in average age between survivors and non-survivors.")
+else:
+    print("Fail to reject the null hypothesis: No significant difference in average age between survivors and non-survivors.")
