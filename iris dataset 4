@@ -1,0 +1,74 @@
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+# Sample dataset
+data = {
+    'PassengerId': range(1, 11),
+    'Name': ['John', 'Emily', 'William', 'Sophia', 'James', 'Olivia', 'Liam', 'Emma', 'Noah', 'Ava'],
+    'Gender': ['male', 'female', 'male', 'female', 'male', 'female', 'male', 'female', 'male', 'female'],
+    'Survived': [1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
+    'Age': [22, 35, 26, 40, 19, 50, 28, 45, 60, 18],
+    'Fare': [72, 15, 55, 8, 100, 25, 60, 30, 10, 90],
+    'Pclass': [1, 3, 2, 3, 1, 3, 2, 2, 3, 1]
+}
+
+df = pd.DataFrame(data)
+
+# Set Seaborn theme
+sns.set(style="whitegrid")
+
+# 1. Bar Plot – Total Fare by Passenger Class
+plt.figure(figsize=(6, 4))
+sns.barplot(x='Pclass', y='Fare', data=df, estimator=sum, errorbar=None, hue='Pclass', palette='Blues', legend=False)
+plt.title("Total Fare by Passenger Class")
+plt.xlabel("Pclass")
+plt.ylabel("Total Fare")
+plt.show()
+
+# 2. Histogram – Age Distribution
+plt.figure(figsize=(6, 4))
+sns.histplot(df['Age'], bins=8, kde=True, color='skyblue')
+plt.title("Age Distribution")
+plt.xlabel("Age")
+plt.ylabel("Count")
+plt.show()
+
+# 3. Box Plot – Fare by Survival
+plt.figure(figsize=(6, 4))
+sns.boxplot(x='Survived', y='Fare', data=df, hue='Survived', palette='Set2', legend=False)
+plt.title("Box Plot of Fare by Survival")
+plt.xlabel("Survived (0=No, 1=Yes)")
+plt.ylabel("Fare")
+plt.show()
+
+# 4. Count Plot – Gender Count
+plt.figure(figsize=(6, 4))
+sns.countplot(x='Gender', data=df, hue='Gender', palette='muted', legend=False)
+plt.title("Gender Distribution")
+plt.xlabel("Gender")
+plt.ylabel("Count")
+plt.show()
+
+# 5. Scatter Plot – Age vs Fare colored by Survival
+plt.figure(figsize=(6, 4))
+sns.scatterplot(x='Age', y='Fare', hue='Survived', data=df, s=100, palette='coolwarm')
+plt.title("Age vs Fare (Colored by Survival)")
+plt.xlabel("Age")
+plt.ylabel("Fare")
+plt.show()
+
+# 6. Pie Chart – Gender Percentage
+plt.figure(figsize=(6, 6))
+gender_counts = df['Gender'].value_counts()
+plt.pie(gender_counts, labels=gender_counts.index, autopct='%1.1f%%', colors=['#ff9999', '#66b3ff'])
+plt.title("Gender Proportion")
+plt.show()
+
+# 7. Line Plot – Fare over Passenger IDs
+plt.figure(figsize=(6, 4))
+sns.lineplot(x='PassengerId', y='Fare', data=df, marker='o', color='green')
+plt.title("Fare per Passenger")
+plt.xlabel("Passenger ID")
+plt.ylabel("Fare")
+plt.show()
