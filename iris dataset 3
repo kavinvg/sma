@@ -1,11 +1,11 @@
 #3 inferencial statistics t test
 
+import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import pandas as pd
 from scipy import stats
 
-# Simulated Titanic-like dataset with extra columns
+# Create a simulated Titanic-like dataset
 data = {
     'PassengerId': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
     'Name': [
@@ -16,6 +16,8 @@ data = {
     'Survived': [1, 0, 1, 0, 1, 0, 1, 0, 0, 1],
     'Age': [22, 35, 26, 40, 19, 50, 28, 45, 60, 18]
 }
+
+# Create a DataFrame from the data
 df = pd.DataFrame(data)
 
 # Show the first few rows
